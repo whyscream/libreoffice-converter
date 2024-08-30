@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Libreoffice document conversion</title>
+</head>
+
+<body>
+    <h1>Convert document</h1>
+    <form method="post" enctype="multipart/form-data">
+        <label for="file">Select file:</label>
+        <input type="file" name="file" id="file"><br>
+
+        <label for="format">Select format:</label>
+        <select name="format" id="format">
+        {% for format in formats %}
+            <option value="{{ format }}">{{ format }}</option>
+        {% endfor %}
+        </select><br>
+
+        <input type="submit" value="Convert">
+    </form>
+</body>
+
+</html>

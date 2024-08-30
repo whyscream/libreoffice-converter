@@ -1,0 +1,8 @@
+.git/
+.gitignore
+.idea/
+.venv/
+__pycache__/
+app_temp_dir/
+build/
+*.egg-info/

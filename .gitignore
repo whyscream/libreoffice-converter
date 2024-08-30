@@ -1,0 +1,14 @@
+# Editor files
+.idea/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[co]
+
+# Debug files
+app_temp_dir/
+
+# development files
+.venv/
+build/
+*.egg-info/
