@@ -9,12 +9,18 @@
 
 <body>
     <h1>Convert document</h1>
+    <p>
+        Find valid formats in
+        <a href="https://help.libreoffice.org/latest/en-US/text/shared/guide/convertfilters.html">
+            the list of supported formats
+        </a>
+    </p>
     <form method="post" enctype="multipart/form-data">
         <label for="file">Select file:</label>
         <input type="file" name="file" id="file"><br>
 
-        <label for="format">Select format:</label>
-        <select name="format" id="format">
+        <label for="format_to">Select target format:</label>
+        <select name="format_to" id="format_to">
         {% for format in formats %}
             <option value="{{ format }}">{{ format }}</option>
         {% endfor %}

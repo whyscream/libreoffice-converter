@@ -1,11 +1,14 @@
 import os
+from unittest.mock import DEFAULT
 
 from flask import Flask, request, send_file, render_template, redirect, url_for
 
 from .convert import convert_file
 
-TARGET_FORMATS = ("pdf", "docx", "odt", "txt", "html", "xml", "rtf", "epub", "xhtml")
-
+# See the link for all possible conversions
+# https://help.libreoffice.org/latest/en-US/text/shared/guide/convertfilters.html
+DEFAULT_ALLOWED_FORMATS = "pdf,docx,odt,txt,html,xml,rtf,epub,xhtml,csv,pages,xlsx,ods,xls"
+ALLOWED_FORMATS = os.getenv("APP_ALLOWED_FORMATS", DEFAULT_ALLOWED_FORMATS).split(",")
 
 def create_app():
     app = Flask(__name__)
@@ -26,17 +29,26 @@ def create_app():
         if request.method == "POST":
             # Get the file from the request
             file = request.files["file"]
+            if not file:
+                return "No file provided", 400
 
             # Get the format to convert to
-            format_to = request.form["format"]
-            if format_to not in TARGET_FORMATS:
-                return "Unsupported format", 400
+            format_to = request.form["format_to"]
+            if not format_to:
+                return "No format provided", 400
+
+            if format_to not in ALLOWED_FORMATS:
+                return f"Invalid format: {format_to}", 400
 
             # Convert the file
-            converted_file = convert_file(file, format_to)
+            try:
+                converted_file = convert_file(file, format_to)
+            except Exception as e:
+                return str(e), 500
+
             converted_file_name = os.path.basename(converted_file.name)
             return send_file(converted_file, as_attachment=True, download_name=converted_file_name)
         else:
-            return render_template("convert.html", formats=TARGET_FORMATS)
+            return render_template("convert.html", formats=ALLOWED_FORMATS)
 
     return app

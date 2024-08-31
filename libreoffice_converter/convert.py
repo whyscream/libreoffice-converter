@@ -49,4 +49,10 @@ def convert_file(file, format_to):
             converted_file = open(converted_file_path, "rb")
             return converted_file
         else:
-            raise Exception("Conversion failed, process output: " + process.stdout.decode())
+            stdout = process.stdout.decode()
+            stderr = process.stderr.decode()
+            logger.warning(f"Conversion failed: {file.filename}: {format_to=} {stdout=} {stderr=}")
+            if "Error: no export filter for" in stderr:
+                raise Exception(f"Conversion failed, no export filter found for the format: {format_to}")
+            else:
+                raise Exception("Conversion failed")
