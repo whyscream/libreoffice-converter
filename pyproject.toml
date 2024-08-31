@@ -8,4 +8,5 @@ version = "0.1.0"
 description = "Flask app exposing Libreoffice document conversion for browser and API clients"
 dependencies = [
     "flask~=3.0.3",
+    "gunicorn~=23.0.0",
 ]

@@ -40,6 +40,7 @@ RUN /opt/venv/bin/python -m pip install --no-cache /app
 
 # Copy the application code
 COPY ./libreoffice_converter /app/libreoffice_converter
+COPY ./gunicorn_config.py /app/gunicorn_config.py
 
 RUN adduser -u $PUID -g $PGID -D -h /app app
 USER app
@@ -47,4 +48,4 @@ WORKDIR /app
 
 # Run the application
 ENV FLASK_APP=libreoffice_converter
-ENTRYPOINT ["/opt/venv/bin/python", "-m", "flask", "run", "--host", "0.0.0.0"]
+ENTRYPOINT ["/opt/venv/bin/python", "-m", "gunicorn", "--config", "/app/gunicorn_config.py", "libreoffice_converter:create_app()"]
