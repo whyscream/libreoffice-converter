@@ -39,12 +39,12 @@ COPY pyproject.toml /app/pyproject.toml
 RUN /opt/venv/bin/python -m pip install --no-cache /app
 
 # Copy the application code
-COPY ./app /app
+COPY ./libreoffice_converter /app/libreoffice_converter
 
 RUN adduser -u $PUID -g $PGID -D -h /app app
 USER app
 WORKDIR /app
 
 # Run the application
-ENV FLASK_APP=application:app
+ENV FLASK_APP=libreoffice_converter
 ENTRYPOINT ["/opt/venv/bin/python", "-m", "flask", "run", "--host", "0.0.0.0"]

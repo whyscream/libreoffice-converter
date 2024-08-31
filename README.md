@@ -36,6 +36,7 @@ pip install .
 ### Run the Flask development server
 
 ```shell
+export FLASK_APP=libreoffice_converter
 flask run --debug
 ```
 
@@ -48,6 +49,7 @@ To do so, set the environment variables `APP_TEMP_DIR` and `APP_DELETE_FILES`.
 ```shell
 export APP_TEMP_DIR=./app_temp_dir
 export APP_DELETE_FILES=false
+export FLASK_APP=libreoffice_converter
 flask run --debug
 ```
 
