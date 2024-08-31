@@ -11,4 +11,5 @@ app_temp_dir/
 # development files
 .venv/
 build/
+compose.env
 *.egg-info/

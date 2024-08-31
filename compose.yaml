@@ -5,10 +5,9 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: libreoffice-converter
-#    environment:
-#      - FLASK_DEBUG=1
-#      - APP_TEMP_DIR=/tmp/app_temp
-#      - APP_DELETE_FILES=false
+    env_file:
+      - path: compose.env
+        required: false
     ports:
       - "5000:5000"
     restart: unless-stopped
