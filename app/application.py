@@ -2,7 +2,7 @@ import os
 
 from flask import Flask, request, send_file, render_template, redirect, url_for
 
-from convert import convert_file
+from .convert import convert_file
 
 app = Flask(__name__)
 app.config.from_prefixed_env()

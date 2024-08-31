@@ -39,11 +39,12 @@ COPY pyproject.toml /app/pyproject.toml
 RUN /opt/venv/bin/python -m pip install --no-cache /app
 
 # Copy the application code
-COPY . /app
+COPY ./app /app
 
 RUN adduser -u $PUID -g $PGID -D -h /app app
 USER app
 WORKDIR /app
 
 # Run the application
+ENV FLASK_APP=application:app
 ENTRYPOINT ["/opt/venv/bin/python", "-m", "flask", "run", "--host", "0.0.0.0"]
