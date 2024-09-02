@@ -70,7 +70,7 @@ To review the conversion process, you can save all uploaded and converted files.
 To do so, set the environment variables `APP_TEMP_DIR` and `APP_DELETE_FILES`.
 
 ```shell
-export APP_TEMP_DIR=./app_temp_dir
+export APP_TEMP_DIR=./temp
 export APP_DELETE_FILES=false
 export FLASK_APP=libreoffice_converter
 flask run --debug
@@ -78,10 +78,10 @@ flask run --debug
 
 ```compose-yaml
 environment:
-  - APP_TEMP_DIR=/tmp/app_temp_dir
+  - APP_TEMP_DIR=/app/temp
   - APP_DELETE_FILES=false
 volumes:
-  - ./app_temp_dir:/tmp/app_temp_dir
+  - ./temp:/app/temp
 ```
 
 

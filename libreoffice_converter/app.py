@@ -1,5 +1,6 @@
 import logging
 import os
+import secrets
 
 from flask import Flask, request, send_file, render_template, redirect, url_for
 
@@ -17,6 +18,8 @@ def create_app():
     app.config.from_prefixed_env()
     if not app.config.get("MAX_CONTENT_LENGTH"):
         app.config["MAX_CONTENT_LENGTH"] = 10 * 1024 * 1024  # 10 MB
+    if not app.config.get("SECRET_KEY"):
+        app.config["SECRET_KEY"] = secrets.token_urlsafe(32)
 
     @app.route("/")
     def index():

@@ -3,6 +3,6 @@
 .idea/
 .venv/
 __pycache__/
-app_temp_dir/
+temp/
 build/
 *.egg-info/
