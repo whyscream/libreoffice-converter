@@ -1,9 +1,11 @@
+import logging
 import os
-from unittest.mock import DEFAULT
 
 from flask import Flask, request, send_file, render_template, redirect, url_for
 
 from .convert import convert_file
+
+logging.basicConfig(level=logging.INFO)
 
 # See the link for all possible conversions
 # https://help.libreoffice.org/latest/en-US/text/shared/guide/convertfilters.html
