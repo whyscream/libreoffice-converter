@@ -41,6 +41,7 @@ def convert_file(file, format_to):
             ],
             capture_output=True,
             check=True,
+            timeout=30,
         )
 
         converted_files = list(outdir.iterdir())

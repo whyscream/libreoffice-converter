@@ -43,7 +43,7 @@ def create_app():
                 return "No format provided", 400
 
             if format_to not in ALLOWED_FORMATS:
-                return f"Invalid format: {format_to}", 400
+                return f"Unsupported format: {format_to}", 400
 
             # Convert the file
             try:

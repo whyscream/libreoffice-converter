@@ -1,6 +1,6 @@
 # Libreoffice document conversion API in Docker container
 
-This is a simple API that converts (Libreoffice) documents to many other formats. It is built using Flask and runs in a Docker container.
+This is a simple HTTP service that converts (Libreoffice) documents to many other formats. It is built using Flask and runs in a Docker container.
 
 ## Usage
 
@@ -26,10 +26,16 @@ docker compose up
 
 ### Convert a document
 
-Send a POST request to the `/convert` endpoint with the document file as a form field named `file`, and the target format in a form field named `format`. The converted document will be returned as a response.
+Now you can visit the convert page at http://localhost:5000/v1/convert and test it manually.
+
+You can also convert using automated HTTP requests: send a POST request to the `/v1/convert` endpoint with the document file as a form field named `file`, and the target format in a form field named `format_to`. The converted document will be returned as a response.
+Formats can be specified by their extension or by their filter name. The filter name is the name that Libreoffice uses to identify the format. See the [Libreoffice docs](https://help.libreoffice.org/latest/en-US/text/shared/guide/convertfilters.html) for details
 
 ```shell
-curl -X POST -F "file=@/path/to/document.docx" -F "format=pdf" http://localhost:5000/v1/convert > converted.pdf
+curl -X POST -F "file=@/path/to/document.docx" -F "format_to=pdf" http://localhost:5000/v1/convert > converted.pdf
+
+# Or specify the filter name
+curl -X POST -F "file=@/path/to/document.docx" -F "format_to=doc:MS Word 97" http://localhost:5000/v1/convert > converted.doc
 ```
 
 ### Supported formats
@@ -69,6 +75,7 @@ To review the conversion process, you can save all uploaded and converted files.
 
 To do so, set the environment variables `APP_TEMP_DIR` and `APP_DELETE_FILES`.
 
+In a shell:
 ```shell
 export APP_TEMP_DIR=./temp
 export APP_DELETE_FILES=false
@@ -76,7 +83,9 @@ export FLASK_APP=libreoffice_converter
 flask run --debug
 ```
 
+Or in compose.yaml:
 ```compose-yaml
+# Or better: use the provided compose.env.example
 environment:
   - APP_TEMP_DIR=/app/temp
   - APP_DELETE_FILES=false
