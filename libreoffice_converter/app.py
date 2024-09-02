@@ -10,6 +10,8 @@ TARGET_FORMATS = ("pdf", "docx", "odt", "txt", "html", "xml", "rtf", "epub", "xh
 def create_app():
     app = Flask(__name__)
     app.config.from_prefixed_env()
+    if not app.config.get("MAX_CONTENT_LENGTH"):
+        app.config["MAX_CONTENT_LENGTH"] = 10 * 1024 * 1024  # 10 MB
 
     @app.route("/")
     def index():
