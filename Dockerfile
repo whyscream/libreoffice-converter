@@ -1,4 +1,4 @@
-FROM alpine:3.20.2
+FROM alpine:3.22.0
 
 # Allow setting the UID and GID of the user running the application
 ARG PUID=1000
